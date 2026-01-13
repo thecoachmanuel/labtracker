@@ -354,7 +354,11 @@ export async function uploadLogo(formData: FormData) {
 }
 
 export async function getUnits() {
-    return prisma.unit.findMany()
+    try {
+        return await prisma.unit.findMany()
+    } catch (e) {
+        return []
+    }
 }
 
 export async function createUnit(name: string, defaultTat: number = 1440) {
