@@ -2,6 +2,8 @@ import NextAuth from 'next-auth'
 import { NextRequest } from 'next/server'
 import { authOptions } from '@/app/auth'
 
+export const runtime = 'nodejs'
+
 const authHandler = NextAuth(authOptions)
 
 type RouteCtx = { params: Promise<{ nextauth: string[] }> }
