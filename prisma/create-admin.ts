@@ -4,8 +4,8 @@ import bcrypt from 'bcryptjs'
 const prisma = new PrismaClient()
 
 async function main() {
-  const email = 'admin@admin.com'
-  const password = 'admin123'
+  const email = process.env.ADMIN_EMAIL || 'admin@admin.com'
+  const password = process.env.ADMIN_PASSWORD || 'admin123'
   const exists = await prisma.user.findUnique({ where: { email } })
   if (exists) return
   const password_hash = await bcrypt.hash(password, 10)
@@ -24,7 +24,6 @@ main()
     await prisma.$disconnect()
   })
   .catch(async (e) => {
-    console.error(e)
     await prisma.$disconnect()
     process.exit(1)
   })

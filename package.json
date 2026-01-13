@@ -11,10 +11,10 @@
     "db:generate": "prisma generate",
     "db:migrate:dev": "prisma migrate dev",
     "db:migrate:deploy": "prisma migrate deploy",
-    "seed:admin": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/create-admin.ts"
+    "db:seed:admin": "prisma db seed"
   },
   "prisma": {
-    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
+    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/create-admin.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
