@@ -297,8 +297,19 @@ export async function updateUserBenches(userId: string, benchIds: string[]) {
 // --- Admin / Settings Stubs ---
 
 export async function getSiteSettings() {
-  const settings = await prisma.siteSettings.findFirst()
-  if (!settings) {
+  try {
+    const settings = await prisma.siteSettings.findFirst()
+    if (!settings) {
+      return {
+        logoUrl: null,
+        logoTitle: "LabTracker",
+        heroTitle: "Precision Sample Tracking For Modern Labs",
+        heroSubtitle: "Streamline your laboratory workflow with our secure, real-time sample management system.",
+        heroButtonText: "Start Tracking Now"
+      }
+    }
+    return settings
+  } catch (e) {
     return {
       logoUrl: null,
       logoTitle: "LabTracker",
@@ -307,7 +318,6 @@ export async function getSiteSettings() {
       heroButtonText: "Start Tracking Now"
     }
   }
-  return settings
 }
 
 export async function updateSiteSettings(data: any) {
