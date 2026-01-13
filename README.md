@@ -1,36 +1,91 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Medical Laboratory Sample Tracking MVP
+
+A production-ready MVP web application for tracking medical laboratory samples and monitoring Turnaround Time (TAT) in a general hospital setting.
+
+## Features
+
+- **Role-Based Access Control**:
+  - Reception: Register new samples.
+  - Lab Scientist: Update sample status within their unit.
+  - Supervisor/Admin: View analytics and delays.
+- **Sample Tracking Workflow**:
+  - Statuses: Collected -> Received -> In Processing -> Awaiting Review -> Completed
+  - Automatic Lab Number Generation (YY-MM-XXXX)
+- **Turnaround Time (TAT) Engine**:
+  - Real-time calculation of delays.
+  - Visual indicators (Green/Yellow/Red) based on expected TAT.
+- **Dashboards**:
+  - Reception: Simple form for sample registration.
+  - Scientist: Kanban-style or list view of active samples.
+  - Supervisor: Summary metrics and unit performance.
+
+## Tech Stack
+
+- **Frontend**: Next.js 14 (App Router), TypeScript, Tailwind CSS
+- **Backend**: Next.js Server Actions
+- **Database**: SQLite (via Prisma ORM) - *Easily switchable to PostgreSQL*
+- **Auth**: NextAuth.js (Credentials Provider)
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Node.js 18+
+- npm
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Installation
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1.  **Clone the repository** (if applicable) or navigate to the project directory.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+2.  **Install dependencies**:
+    ```bash
+    npm install
+    ```
 
-## Learn More
+3.  **Environment Setup**:
+    - The project uses a local SQLite database for development ease.
+    - Check `.env` for configuration (defaults are set).
 
-To learn more about Next.js, take a look at the following resources:
+4.  **Database Setup**:
+    ```bash
+    # Run migrations
+    npx prisma migrate dev --name init
+    
+    # Seed the database with initial data (Units, Tests, Users)
+    npx prisma db seed
+    ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+5.  **Run the Development Server**:
+    ```bash
+    npm run dev
+    ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+    Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-## Deploy on Vercel
+## Login Credentials (Demo)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+All accounts use the password: `password`
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| Role | Email | Permissions |
+|Str|Str|Str|
+| **Reception** | `reception@lab.com` | Register samples |
+| **Scientist** | `scientist@lab.com` | Update status (Haematology Unit) |
+| **Reviewer** | `reviewer@lab.com` | Review samples |
+| **Supervisor** | `supervisor@lab.com` | View analytics |
+| **Admin** | `admin@lab.com` | Full access |
+
+## Project Structure
+
+- `app/`: Next.js App Router pages and API routes.
+- `app/actions.ts`: Server Actions for data mutation and fetching.
+- `app/auth.ts`: NextAuth configuration.
+- `components/`: Reusable UI components.
+- `prisma/`: Database schema and seed script.
+
+## Deployment
+
+To deploy to Vercel:
+1.  Push code to a Git repository.
+2.  Import the project into Vercel.
+3.  Set `DATABASE_URL` and `NEXTAUTH_SECRET` in Vercel Environment Variables.
+4.  *Note*: For production, switch the Prisma provider to `postgresql` in `prisma/schema.prisma` and use a managed Postgres database (e.g., Vercel Postgres, Supabase).

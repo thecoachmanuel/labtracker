@@ -1,0 +1,16 @@
+/*
+  Warnings:
+
+  - You are about to drop the `UserRole` table. If the table is not empty, all the data it contains will be lost.
+  - You are about to drop the `_UserToUserRole` table. If the table is not empty, all the data it contains will be lost.
+
+*/
+-- DropTable
+PRAGMA foreign_keys=off;
+DROP TABLE "UserRole";
+PRAGMA foreign_keys=on;
+
+-- DropTable
+PRAGMA foreign_keys=off;
+DROP TABLE "_UserToUserRole";
+PRAGMA foreign_keys=on;

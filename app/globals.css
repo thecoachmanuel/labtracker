@@ -1,26 +1,60 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@layer components {}
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@keyframes blob {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  33% {
+    transform: translate(30px, -50px) scale(1.1);
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
+  100% {
+    transform: translate(0px, 0px) scale(1);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.animate-blob {
+  animation: blob 7s infinite;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+.animation-delay-4000 {
+  animation-delay: 4s;
+}
+
+@keyframes gradient-x {
+  0%, 100% {
+    background-size: 200% 200%;
+    background-position: left center;
+  }
+  50% {
+    background-size: 200% 200%;
+    background-position: right center;
+  }
+}
+
+.animate-gradient-x {
+  animation: gradient-x 3s ease infinite;
+}
+
+/* Hide scrollbar utility for horizontal lists */
+.scrollbar-hidden {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
+
+/* Prevent page-level horizontal overflow while allowing inner scrollers */
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
 }

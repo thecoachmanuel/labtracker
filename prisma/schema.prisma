@@ -1,0 +1,148 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+
+model User {
+  id            String    @id @default(cuid())
+  name          String
+  email         String    @unique
+  password_hash String
+  role          String    // Role enum
+  unit_id       String?
+  unit          Unit?     @relation(fields: [unit_id], references: [id])
+  created_at    DateTime  @default(now())
+  updated_at    DateTime  @updatedAt
+  
+  samples_created Sample[] @relation("CreatedBy")
+  samples_processed Sample[] @relation("ProcessedBy")
+  status_logs     SampleStatusLog[]
+  selected_benches UserBench[]
+  assigned_tests SampleTest[] @relation("AssignedUser")
+}
+
+model Unit {
+  id                  String   @id @default(cuid())
+  name                String   @unique
+  default_tat_minutes Int?     @default(60)
+  users               User[]
+  samples             Sample[]
+  tests               Test[]
+  benches             Bench[]
+}
+
+model Bench {
+  id      String @id @default(cuid())
+  name    String
+  unit_id String
+  unit    Unit   @relation(fields: [unit_id], references: [id])
+  tests   Test[]
+  users   UserBench[]
+
+  @@unique([name, unit_id])
+}
+
+model UserBench {
+  user_id  String
+  bench_id String
+  user     User  @relation(fields: [user_id], references: [id])
+  bench    Bench @relation(fields: [bench_id], references: [id])
+
+  @@id([user_id, bench_id])
+}
+
+model Ward {
+  id      String   @id @default(cuid())
+  name    String   @unique
+  samples Sample[]
+}
+
+model Test {
+  id                   String   @id @default(cuid())
+  name                 String
+  expected_tat_minutes Int
+  unit_id              String
+  unit                 Unit     @relation(fields: [unit_id], references: [id])
+  samples              SampleTest[]
+  bench_id             String?
+  bench                Bench?   @relation(fields: [bench_id], references: [id])
+}
+
+model Sample {
+  id             String   @id @default(cuid())
+  accession_number String   @unique
+  lab_number     String?  @unique
+  patient_name   String
+  age            String?
+  gender         String?
+  clinical_info  String?
+  specimen_type  String?
+  source         String   // OPD or Ward
+  ward_id        String?
+  ward           Ward?    @relation(fields: [ward_id], references: [id])
+  unit_id        String
+  unit           Unit     @relation(fields: [unit_id], references: [id])
+  status         String   @default("COLLECTED")
+  collected_at   DateTime @default(now())
+  created_by_id  String
+  created_by     User     @relation("CreatedBy", fields: [created_by_id], references: [id])
+  processed_by_id String?
+  processed_by   User?    @relation("ProcessedBy", fields: [processed_by_id], references: [id])
+  created_at     DateTime @default(now())
+  updated_at     DateTime @updatedAt
+  
+  tests          SampleTest[]
+  status_logs    SampleStatusLog[]
+}
+
+model SampleTest {
+  id        String   @id @default(cuid())
+  sample_id String
+  sample    Sample   @relation(fields: [sample_id], references: [id])
+  test_id   String
+  test      Test     @relation(fields: [test_id], references: [id])
+  status    String   @default("PENDING")
+  result    String?
+  notes     String?
+  
+  assigned_to_id String?
+  assigned_to    User?    @relation("AssignedUser", fields: [assigned_to_id], references: [id])
+  
+  completed_at DateTime?
+  created_at   DateTime @default(now())
+  updated_at   DateTime @updatedAt
+
+  @@unique([sample_id, test_id])
+}
+
+model SampleStatusLog {
+  id          String   @id @default(cuid())
+  sample_id   String
+  sample      Sample   @relation(fields: [sample_id], references: [id])
+  from_status String?
+  to_status   String
+  user_id     String
+  user        User     @relation(fields: [user_id], references: [id])
+  notes       String?
+  timestamp   DateTime @default(now())
+}
+
+model SiteSettings {
+  id String @id @default(cuid())
+  
+  // Branding
+  logoUrl String?
+  logoTitle String @default("LabTracker")
+  
+  // Hero Section
+  heroTitle String @default("Precision Sample Tracking For Modern Labs")
+  heroSubtitle String @default("Streamline your laboratory workflow with our secure, real-time sample management system.")
+  heroButtonText String @default("Start Tracking Now")
+  
+  updatedAt DateTime @updatedAt
+}
