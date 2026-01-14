@@ -4,7 +4,7 @@ import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import SignOutButton from '../../components/SignOutButton'
 import { getSiteSettings } from '@/app/actions'
-import { TestTube2, Menu } from 'lucide-react'
+import { TestTube2, Menu, Search } from 'lucide-react'
 
 export default async function DashboardLayout({
   children,
@@ -38,6 +38,13 @@ export default async function DashboardLayout({
               </div>
             </div>
             <div className="hidden sm:flex items-center space-x-4">
+              <Link
+                href="/track"
+                className="inline-flex items-center px-3 py-1.5 rounded-md text-sm font-medium text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 border border-transparent cursor-pointer"
+              >
+                <Search className="h-4 w-4 mr-1" />
+                Track Result
+              </Link>
               <div className="text-sm text-gray-500">
                 <span className="font-medium text-gray-900">{session.user.name}</span>
                 <span className="ml-2 px-2 py-1 text-xs rounded-full bg-indigo-100 text-indigo-800">
@@ -60,7 +67,13 @@ export default async function DashboardLayout({
                         {session.user.role}
                       </span>
                     </div>
-                    <div className="mt-3">
+                    <div className="mt-3 space-y-2">
+                      <Link
+                        href="/track"
+                        className="block w-full text-left cursor-pointer rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100"
+                      >
+                        Track Result
+                      </Link>
                       <SignOutButton />
                     </div>
                   </div>

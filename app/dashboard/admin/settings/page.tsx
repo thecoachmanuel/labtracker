@@ -71,8 +71,17 @@ export default function SiteSettingsPage() {
             <label className="block text-sm font-medium text-gray-700">Logo Image</label>
             <div className="mt-2 flex items-center space-x-4">
               {settings.logoUrl && (
-                <div className="h-16 w-16 relative border rounded bg-gray-50 flex items-center justify-center overflow-hidden">
-                  <img src={settings.logoUrl} alt="Logo" className="max-h-full max-w-full object-contain" />
+                <div className="flex items-center space-x-3">
+                  <div className="h-16 w-16 relative border rounded bg-gray-50 flex items-center justify-center overflow-hidden">
+                    <img src={settings.logoUrl} alt="Logo" className="max-h-full max-w-full object-contain" />
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setSettings({ ...settings, logoUrl: null })}
+                    className="inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 shadow-sm hover:bg-gray-50"
+                  >
+                    Remove logo
+                  </button>
                 </div>
               )}
               <div className="flex-1">
