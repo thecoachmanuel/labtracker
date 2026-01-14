@@ -40,9 +40,22 @@ export default function TrackResultForm({ settings }: { settings: { logoUrl?: st
   return (
     <div className="min-h-screen bg-gray-50 py-16 px-6">
       <div className="max-w-xl mx-auto bg-white rounded-lg shadow p-6">
-        {settings.logoUrl && (
-          <img src={settings.logoUrl} alt="Logo" className="mx-auto h-16 w-auto mb-4 object-contain" />
-        )}
+        <div className="flex flex-col items-center mb-4">
+          {settings.logoUrl ? (
+            <img
+              src={settings.logoUrl}
+              alt={settings.logoTitle || 'Site logo'}
+              className="h-16 w-16 rounded-full object-cover shadow-sm"
+            />
+          ) : (
+            <div className="h-16 w-16 rounded-full bg-indigo-600 flex items-center justify-center text-white text-2xl font-bold">
+              {settings.logoTitle?.charAt(0) ?? 'L'}
+            </div>
+          )}
+          <div className="mt-2 text-lg font-semibold text-gray-900">
+            {settings.logoTitle}
+          </div>
+        </div>
         <h1 className="text-2xl font-bold text-gray-900 mb-4 text-center">Track Result</h1>
         <p className="text-sm text-gray-600 mb-6 text-center">Enter your accession number to check if your test results are ready.</p>
 
