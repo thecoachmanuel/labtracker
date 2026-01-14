@@ -337,6 +337,8 @@ export async function updateSiteSettings(data: any) {
         await prisma.siteSettings.create({ data })
     }
     revalidatePath('/')
+    revalidatePath('/login')
+    revalidatePath('/track')
 }
 
 export async function uploadLogo(formData: FormData) {
