@@ -49,7 +49,7 @@ export default function ScientistDashboard({
             if (lastArrivalsRef.current.length > 0) {
                 const brandNew = stats.newArrivals.filter((s: any) => !lastArrivalsRef.current.includes(s.id))
                 brandNew.forEach((s: any) => {
-                     const benchNames = Array.from(new Set(s.tests.map((t: any) => t.test.test.bench?.name || 'Unassigned'))).join(', ')
+                     const benchNames = Array.from(new Set(s.tests.map((t: any) => t.test.bench?.name || 'Unassigned'))).join(', ')
                      toast.info(`New Arrival at ${benchNames}`, {
                          description: `${s.patient_name} - ${s.tests.length} tests`
                      })
@@ -120,7 +120,7 @@ export default function ScientistDashboard({
                    {liveStats.newArrivals.length > 0 ? (
                        liveStats.newArrivals.slice(0, 3).map((s: any) => (
                            <div key={s.id} className="truncate">
-                               {s.patient_name} <span className="text-blue-400">•</span> {Array.from(new Set(s.tests.map((t: any) => t.test.test.bench?.name))).join(', ')}
+                               {s.patient_name} <span className="text-blue-400">•</span> {Array.from(new Set(s.tests.map((t: any) => t.test.bench?.name))).join(', ')}
                            </div>
                        ))
                    ) : 'No new arrivals'}

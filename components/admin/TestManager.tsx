@@ -176,7 +176,7 @@ export default function TestManager({
                 )}
                 <button
                   onClick={() => handleDelete(test.id)}
-                  className="text-red-600 hover:text-red-900"
+                  className="cursor-pointer text-red-600 hover:text-red-900"
                 >
                   <Trash2 className="h-5 w-5" />
                 </button>

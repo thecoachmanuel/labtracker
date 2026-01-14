@@ -247,7 +247,7 @@ export default function ReceptionForm({
                        <button
                          type="button"
                          onClick={() => handleTestToggle(id)}
-                         className="ml-1.5 inline-flex items-center justify-center text-indigo-400 hover:text-indigo-600"
+                         className="cursor-pointer ml-1.5 inline-flex items-center justify-center text-indigo-400 hover:text-indigo-600"
                        >
                          <span className="sr-only">Remove</span>
                          <X className="h-3 w-3" />
@@ -301,7 +301,7 @@ export default function ReceptionForm({
         <button
           type="submit"
           disabled={loading}
-          className="w-full sm:w-auto inline-flex justify-center items-center px-6 py-2.5 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="cursor-pointer w-full sm:w-auto inline-flex justify-center items-center px-6 py-2.5 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {loading ? (
             <span className="flex items-center">

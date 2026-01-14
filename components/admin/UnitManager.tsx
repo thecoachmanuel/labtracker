@@ -121,13 +121,13 @@ export default function UnitManager({ units }: { units: Unit[] }) {
                     setEditingUnit(unit)
                     setEditName(unit.name)
                   }}
-                  className="text-gray-500 hover:text-blue-600 p-2"
+                  className="cursor-pointer text-gray-500 hover:text-blue-600 p-2"
                 >
                   <Pencil className="h-5 w-5" />
                 </button>
                 <button
                   onClick={() => handleDelete(unit.id)}
-                  className="text-red-600 hover:text-red-900 p-2"
+                  className="cursor-pointer text-red-600 hover:text-red-900 p-2"
                 >
                   <Trash2 className="h-5 w-5" />
                 </button>

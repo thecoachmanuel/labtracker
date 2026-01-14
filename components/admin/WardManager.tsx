@@ -66,7 +66,7 @@ export default function WardManager({ wards }: { wards: Ward[] }) {
         <button
           type="submit"
           disabled={loading}
-          className="inline-flex justify-center items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
+          className="cursor-pointer inline-flex justify-center items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
         >
           {loading ? (
             <Loader2 className="animate-spin h-4 w-4" />
@@ -80,7 +80,7 @@ export default function WardManager({ wards }: { wards: Ward[] }) {
           <button
             type="button"
             onClick={handleCancelEdit}
-            className="inline-flex justify-center items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-gray-200 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
+            className="cursor-pointer inline-flex justify-center items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-gray-200 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
           >
             <X className="h-4 w-4" />
           </button>
@@ -95,13 +95,13 @@ export default function WardManager({ wards }: { wards: Ward[] }) {
               <div className="flex gap-2">
                 <button
                   onClick={() => handleEdit(ward)}
-                  className="text-indigo-600 hover:text-indigo-900"
+                  className="cursor-pointer text-indigo-600 hover:text-indigo-900"
                 >
                   <Pencil className="h-5 w-5" />
                 </button>
                 <button
                   onClick={() => handleDelete(ward.id)}
-                  className="text-red-600 hover:text-red-900"
+                  className="cursor-pointer text-red-600 hover:text-red-900"
                 >
                   <Trash2 className="h-5 w-5" />
                 </button>

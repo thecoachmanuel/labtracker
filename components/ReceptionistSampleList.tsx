@@ -73,7 +73,7 @@ export default function ReceptionistSampleList() {
         <button
           onClick={() => fetchSamples()}
           disabled={refreshing}
-          className="p-2 text-gray-400 hover:text-indigo-600 rounded-full hover:bg-gray-100 transition-colors"
+          className="cursor-pointer p-2 text-gray-400 hover:text-indigo-600 rounded-full hover:bg-gray-100 transition-colors disabled:cursor-not-allowed"
           title="Refresh now"
         >
           <RefreshCw className={`w-5 h-5 ${refreshing ? 'animate-spin' : ''}`} />

@@ -285,7 +285,7 @@ export default function SampleCard({
             <button
               onClick={() => handleStatusUpdate('RECEIVED')}
               disabled={loading}
-              className="w-full col-span-2 inline-flex justify-center items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="cursor-pointer w-full col-span-2 inline-flex justify-center items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Receive Sample
             </button>
@@ -295,7 +295,7 @@ export default function SampleCard({
             <button
               onClick={() => handleStatusUpdate('IN_PROCESSING')}
               disabled={loading || (userRole === 'LAB_SCIENTIST' && !hasMyClaimedTests)}
-              className="w-full col-span-2 inline-flex justify-center items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="cursor-pointer w-full col-span-2 inline-flex justify-center items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
               title={userRole === 'LAB_SCIENTIST' && !hasMyClaimedTests ? "Claim at least one test to start" : ""}
             >
               Start Process
@@ -307,7 +307,7 @@ export default function SampleCard({
               <button
                 onClick={() => handleStatusUpdate('AWAITING_REVIEW')}
                 disabled={loading || (userRole === 'LAB_SCIENTIST' && (!hasMyClaimedTests || !allTestsHaveResults))}
-                className="w-full inline-flex justify-center items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="cursor-pointer w-full inline-flex justify-center items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
                 title={userRole === 'LAB_SCIENTIST' ? (!hasMyClaimedTests ? "You must claim tests first" : (!allTestsHaveResults ? "All tests must have results" : "")) : ""}
               >
                 Send for Review
@@ -315,7 +315,7 @@ export default function SampleCard({
               <button
                 onClick={() => setShowDelayInput(true)}
                 disabled={loading}
-                className="w-full inline-flex justify-center items-center px-4 py-2 border text-sm font-medium rounded-md bg-white text-red-600 border-red-200 hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="cursor-pointer w-full inline-flex justify-center items-center px-4 py-2 border text-sm font-medium rounded-md bg-white text-red-600 border-red-200 hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Report Delay
               </button>
@@ -326,7 +326,7 @@ export default function SampleCard({
              <button
              onClick={() => handleStatusUpdate('COMPLETED')}
              disabled={loading || (userRole === 'LAB_SCIENTIST' && !allTestsHaveResults)}
-             className="col-span-2 w-full inline-flex justify-center items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50 disabled:cursor-not-allowed"
+             className="cursor-pointer col-span-2 w-full inline-flex justify-center items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50 disabled:cursor-not-allowed"
              title={userRole === 'LAB_SCIENTIST' && !allTestsHaveResults ? "All tests must be completed first" : ""}
            >
              Approve & Complete
@@ -361,14 +361,14 @@ export default function SampleCard({
                    setShowLabNumberInput(false)
                    setLabNumberInput('')
                 }}
-                className="text-xs text-gray-500"
+                className="cursor-pointer text-xs text-gray-500"
               >
                 Cancel
               </button>
               <button
                 onClick={() => handleStatusUpdate('IN_PROCESSING')}
                 disabled={!labNumberInput}
-                className="text-xs text-white bg-indigo-600 px-3 py-1.5 rounded hover:bg-indigo-700 disabled:opacity-50"
+                className="cursor-pointer text-xs text-white bg-indigo-600 px-3 py-1.5 rounded hover:bg-indigo-700 disabled:opacity-50"
               >
                 Assign & Start
               </button>
@@ -388,14 +388,14 @@ export default function SampleCard({
             <div className="mt-2 flex justify-end space-x-2">
               <button
                 onClick={() => setShowDelayInput(false)}
-                className="text-xs text-gray-500"
+                className="cursor-pointer text-xs text-gray-500"
               >
                 Cancel
               </button>
               <button
                 onClick={() => handleStatusUpdate('DELAYED')}
                 disabled={!delayReason}
-                className="text-xs text-white bg-red-600 px-2 py-1 rounded"
+                className="cursor-pointer text-xs text-white bg-red-600 px-2 py-1 rounded"
               >
                 Confirm Delay
               </button>

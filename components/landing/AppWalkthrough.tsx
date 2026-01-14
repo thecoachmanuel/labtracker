@@ -57,7 +57,7 @@ export default function AppWalkthrough() {
               <button
                 key={feature.id}
                 onClick={() => setActiveFeature(index)}
-                className={`w-full text-left p-6 rounded-2xl transition-all duration-300 ${
+                className={`cursor-pointer w-full text-left p-6 rounded-2xl transition-all duration-300 ${
                   activeFeature === index
                     ? 'bg-gray-50 shadow-lg ring-1 ring-gray-200 scale-102'
                     : 'hover:bg-gray-50/50'

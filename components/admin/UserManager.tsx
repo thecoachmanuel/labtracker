@@ -190,7 +190,7 @@ export default function UserManager({
           </div>
           <button
             onClick={handleCreateClick}
-            className="bg-blue-600 text-white px-4 py-2 rounded-md flex items-center gap-2 hover:bg-blue-700 whitespace-nowrap ml-auto"
+            className="cursor-pointer bg-blue-600 text-white px-4 py-2 rounded-md flex items-center gap-2 hover:bg-blue-700 whitespace-nowrap ml-auto"
           >
             <Plus size={20} />
             <span className="hidden sm:inline">Add User</span>
@@ -335,14 +335,14 @@ export default function UserManager({
                             <div className="flex gap-1">
                               <button
                                 onClick={() => handleEditClick(user)}
-                                className="text-gray-400 hover:text-blue-600 p-1"
+                                className="cursor-pointer text-gray-400 hover:text-blue-600 p-1"
                                 title="Edit User"
                               >
                                 <Pencil size={16} />
                               </button>
                               <button
                                 onClick={() => handleDelete(user.id)}
-                                className="text-gray-400 hover:text-red-600 p-1"
+                                className="cursor-pointer text-gray-400 hover:text-red-600 p-1"
                                 title="Delete User"
                               >
                                 <Trash2 size={16} />

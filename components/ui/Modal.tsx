@@ -23,7 +23,7 @@ export default function Modal({
           <h3 className="text-lg font-medium text-gray-900">{title}</h3>
           <button 
             onClick={onClose} 
-            className="text-gray-400 hover:text-gray-500 focus:outline-none"
+            className="cursor-pointer text-gray-400 hover:text-gray-500 focus:outline-none"
           >
             <X className="h-5 w-5" />
           </button>

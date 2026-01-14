@@ -207,7 +207,7 @@ export default function BenchManager({
                 <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                   <button
                     onClick={() => handleDelete(bench.id)}
-                    className="text-red-600 hover:text-red-900"
+                    className="cursor-pointer text-red-600 hover:text-red-900"
                   >
                     <Trash2 className="h-4 w-4" />
                   </button>
