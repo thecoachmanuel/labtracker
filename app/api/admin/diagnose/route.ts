@@ -1,39 +1,22 @@
-import { NextRequest, NextResponse } from 'next/server'
 
-export const runtime = 'nodejs'
+import { NextResponse } from 'next/server'
+import { prisma } from '@/lib/prisma'
 
-export async function GET(req: NextRequest) {
-  const token = req.headers.get('x-admin-seed-token') || req.nextUrl.searchParams.get('token') || ''
-  const expected = process.env.ADMIN_SEED_TOKEN || ''
-  if (!expected || token !== expected) {
-    return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
-  }
+export const dynamic = 'force-dynamic'
 
-  const result: Record<string, any> = {}
+export async function GET() {
   try {
-    const { prisma } = await import('@/lib/prisma')
-
-    try {
-      await prisma.$queryRaw`SELECT 1`
-      result.dbConnected = true
-    } catch {
-      result.dbConnected = false
+    const admin = await prisma.user.findFirst({
+      where: { role: 'ADMIN' },
+      select: { email: true, role: true, id: true }
+    })
+    
+    if (!admin) {
+      return NextResponse.json({ status: 'error', message: 'No admin found in DB' }, { status: 404 })
     }
 
-    try {
-      const admin = await prisma.user.findFirst({ where: { role: 'ADMIN' } })
-      result.adminExists = !!admin
-    } catch {
-      result.adminExists = false
-    }
-  } catch {
-    result.dbConnected = false
-    result.adminExists = false
+    return NextResponse.json({ status: 'ok', admin })
+  } catch (error) {
+    return NextResponse.json({ status: 'error', message: error instanceof Error ? error.message : 'Unknown DB error' }, { status: 500 })
   }
-
-  result.isPostgresProtocol = (process.env.DATABASE_URL || '').toLowerCase().startsWith('postgres')
-  result.nextauthUrlSet = !!process.env.NEXTAUTH_URL
-  result.nextauthSecretSet = !!process.env.NEXTAUTH_SECRET
-
-  return NextResponse.json(result)
 }

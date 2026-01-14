@@ -13,6 +13,7 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
+          console.log('Missing credentials')
           return null
         }
 
@@ -23,6 +24,7 @@ export const authOptions: NextAuthOptions = {
         })
 
         if (!user) {
+          console.log('User not found:', credentials.email)
           return null
         }
 
@@ -32,9 +34,11 @@ export const authOptions: NextAuthOptions = {
         )
 
         if (!isPasswordValid) {
+          console.log('Invalid password for user:', credentials.email)
           return null
         }
 
+        console.log('User logged in successfully:', credentials.email)
         return {
           id: user.id,
           name: user.name,
@@ -70,5 +74,17 @@ export const authOptions: NextAuthOptions = {
   },
   session: {
     strategy: 'jwt'
+  },
+  debug: true,
+  logger: {
+    error(code, metadata) {
+      console.error('NextAuth Error:', code, metadata)
+    },
+    warn(code) {
+      console.warn('NextAuth Warning:', code)
+    },
+    debug(code, metadata) {
+      console.log('NextAuth Debug:', code, metadata)
+    }
   }
 }
