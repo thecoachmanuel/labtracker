@@ -5,8 +5,6 @@ import { getServerSession } from 'next-auth'
 import { authOptions } from '@/app/auth'
 import { revalidatePath } from 'next/cache'
 import { Prisma } from '@prisma/client'
-import { writeFile, mkdir } from 'fs/promises'
-import { join } from 'path'
 import { hash } from 'bcryptjs'
 
 // --- Receptionist Actions ---
@@ -38,10 +36,15 @@ export async function getReceptionistSamples() {
 
 export async function createSample(data: any) {
   const session = await getServerSession(authOptions)
-  if (!session || !session.user.unit_id) throw new Error('Unauthorized: No unit assigned')
+  if (!session) throw new Error('Unauthorized')
+
+  const tests = data.tests ?? data.test_ids
+  const unitId = session.user.unit_id || data.unit_id
+
+  if (!unitId) throw new Error('Unauthorized: No unit assigned')
 
   // Validation
-  if (!data.patient_name || !data.tests || data.tests.length === 0) {
+  if (!data.patient_name || !tests || tests.length === 0) {
       throw new Error('Invalid data')
   }
 
@@ -54,13 +57,13 @@ export async function createSample(data: any) {
       specimen_type: data.specimen_type,
       source: data.source,
       ward_id: data.ward_id,
-      unit_id: session.user.unit_id,
+      unit_id: unitId,
       created_by_id: session.user.id,
       accession_number: `ACC-${Date.now()}`, // Simple generation
       lab_number: data.lab_number,
       status: 'RECEIVED',
       tests: {
-        create: data.tests.map((testId: string) => ({
+        create: tests.map((testId: string) => ({
           test_id: testId,
           status: 'PENDING'
         }))
@@ -342,15 +345,13 @@ export async function uploadLogo(formData: FormData) {
     
     const file = formData.get('file') as File
     if (!file) throw new Error('No file')
-    
+    const mimeType = (formData.get('mimeType') as string) || 'image/png'
+
     const bytes = await file.arrayBuffer()
     const buffer = Buffer.from(bytes)
-    
-    const path = join(process.cwd(), 'public/uploads', file.name)
-    await mkdir(join(process.cwd(), 'public/uploads'), { recursive: true })
-    await writeFile(path, buffer)
-    
-    return `/uploads/${file.name}`
+
+    const base64 = buffer.toString('base64')
+    return `data:${mimeType};base64,${base64}`
 }
 
 export async function getUnits() {

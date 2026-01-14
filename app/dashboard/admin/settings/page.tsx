@@ -36,6 +36,7 @@ export default function SiteSettingsPage() {
       if (logoFile) {
         const formData = new FormData()
         formData.append('file', logoFile)
+        formData.append('mimeType', logoFile.type || 'image/png')
         logoUrl = await uploadLogo(formData)
       }
 
